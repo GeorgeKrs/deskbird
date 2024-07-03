@@ -3,33 +3,17 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("users", {
+    await queryInterface.createTable("parkingSpots", {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      firstName: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      lastName: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      email: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
-      },
-      role: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      token: {
-        type: Sequelize.STRING,
-        allowNull: false,
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -40,8 +24,14 @@ module.exports = {
         allowNull: false,
       },
     });
+
+    await queryInterface.addConstraint("parkingSpots", {
+      type: "unique",
+      fields: ["name"],
+      name: "unique_name_constraint",
+    });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable("parkingSpots");
   },
 };

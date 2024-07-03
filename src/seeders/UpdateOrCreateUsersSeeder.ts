@@ -1,7 +1,7 @@
 import { USER_APP_ROLES } from "../enums/UserAppRoles";
 import User from "../models/User";
 
-async function createOrUpdateDummyUsers() {
+async function UpdateOrCreateUsersSeeder() {
   const users = [
     {
       firstName: "John",
@@ -45,4 +45,4 @@ async function createOrUpdateDummyUsers() {
   }
 }
 
-export default createOrUpdateDummyUsers;
+export default UpdateOrCreateUsersSeeder;

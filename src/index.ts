@@ -2,7 +2,8 @@ import express, { Application } from "express";
 import DatabaseService from "./services/DatabaseService";
 import "dotenv/config";
 import { router as BookingRoutes } from "./http/routes/BookingRoute";
-import createOrUpdateDummyUsers from "./seeders/UpdateOrCreateUsersSeeder";
+import UpdateOrCreateUsersSeeder from "./seeders/UpdateOrCreateUsersSeeder";
+import UpdateOrCreateParkingSpotsSeeder from "./seeders/UpdateOrCreateParkingSpotsSeeder";
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
@@ -39,10 +40,16 @@ databaseService
  *  Seeders
  *
  */
-createOrUpdateDummyUsers()
+UpdateOrCreateUsersSeeder()
   .then(() => console.log("Users created or updated successfully!"))
   .catch((error: any) =>
-    console.error("Error creating or updating users:", error)
+    console.error("Error at UpdateOrCreateUsersSeeder.", error)
+  );
+
+UpdateOrCreateParkingSpotsSeeder()
+  .then(() => console.log("Parking Spots created or updated successfully!"))
+  .catch((error: any) =>
+    console.error("Error at UpdateOrCreateParkingSpotsSeeder.", error)
   );
 
 app.listen(PORT, () => {
