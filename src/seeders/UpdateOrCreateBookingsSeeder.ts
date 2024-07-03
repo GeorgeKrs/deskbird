@@ -35,7 +35,9 @@ async function UpdateOrCreateBookingsSeeder() {
   ];
 
   for (const booking of bookings) {
-    await Booking.upsert(booking);
+    await Booking.upsert(booking, {
+      fields: ["userId", "parkingSpotId"],
+    });
   }
 }
 
