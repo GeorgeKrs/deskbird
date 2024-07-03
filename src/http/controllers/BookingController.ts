@@ -16,6 +16,7 @@ class BookingController {
           { model: ParkingSpot, as: "parkingSpot" },
         ],
       });
+
       return res.status(200).json({ data });
     } catch (error) {
       console.error(error);
@@ -41,7 +42,7 @@ class BookingController {
       }
 
       return res.status(200).json({
-        message: "The information we have about the booking",
+        message: "The is the information we have about the booking",
         data: booking,
       });
     } catch (error) {
@@ -58,18 +59,16 @@ class BookingController {
     try {
       const { userId, parkingSpotId, startedAt, endedAt } = req.body;
 
-      const data = await Booking.create({
+      const booking = await Booking.create({
         userId: userId,
         parkingSpotId: parkingSpotId,
         startedAt: startedAt,
         endedAt: endedAt,
       });
 
-      console.log(data);
-
       return res.status(201).json({
         message: "The booking created successfully!",
-        data: await Booking.findByPk(data.id, {
+        data: await Booking.findByPk(booking.id, {
           include: [
             { model: User, as: "user" },
             { model: ParkingSpot, as: "parkingSpot" },
