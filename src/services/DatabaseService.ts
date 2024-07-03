@@ -9,23 +9,23 @@ class DatabaseService {
 
   constructor() {
     if (!process.env.DB_DATABASE) {
-      throw new Error("No database name, check the .env file.");
+      throw new Error("DB_DATABASE not found, check the .env file.");
     }
 
     if (!process.env.DB_USERNAME) {
-      throw new Error("No database user name, check the .env file.");
+      throw new Error("DB_USERNAME not found, check the .env file.");
     }
 
     if (!process.env.DB_PASSWORD) {
-      throw new Error("No database password, check the .env file.");
+      throw new Error("DB_PASSWORD not found, check the .env file.");
     }
 
     if (!process.env.DB_HOST) {
-      throw new Error("No database host, check the .env file.");
+      throw new Error("DB_HOST not found, check the .env file.");
     }
 
     if (!process.env.DB_PORT) {
-      throw new Error("No database port, check the .env file.");
+      throw new Error("DB_PORT not found, check the .env file.");
     }
 
     this.database = process.env.DB_DATABASE;
@@ -40,6 +40,8 @@ class DatabaseService {
    *  Public Methods
    *
    */
+
+  /* Instantiate sequelize */
   instantiateSequelize = () => {
     return new Sequelize(this.database, this.username, this.password, {
       host: this.host,
@@ -47,6 +49,7 @@ class DatabaseService {
     });
   };
 
+  /* Test the connection to the database by trying to authenticate */
   connect = async () => {
     await this.instantiateSequelize().authenticate();
   };
