@@ -41,7 +41,7 @@ class DatabaseService {
    *
    */
 
-  /* Instantiate sequelize */
+  /* Instantiate sequelize with name of database, username and password */
   instantiateSequelize = () => {
     return new Sequelize(this.database, this.username, this.password, {
       host: this.host,
