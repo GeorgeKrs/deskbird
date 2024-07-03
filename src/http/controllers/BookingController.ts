@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Booking from "../../models/Booking";
+import { ValidationError } from "sequelize";
 
 class BookingController {
   /*
@@ -12,9 +13,7 @@ class BookingController {
     } catch (error) {
       console.error(error);
 
-      return res
-        .status(500)
-        .json({ message: "Something went wrong, please try again later." });
+      return res.status(500).json({ error });
     }
   };
 
@@ -23,18 +22,20 @@ class BookingController {
    */
   static show = async (req: Request, res: Response) => {
     try {
-      const data = await Booking.findByPk(req.params.id);
+      const booking = await Booking.findByPk(req.params.id);
+
+      if (!booking) {
+        return res.status(404).json({ message: "Booking not found." });
+      }
 
       return res.status(200).json({
         message: "The information we have about the booking",
-        data,
+        data: booking,
       });
     } catch (error) {
       console.error(error);
 
-      return res
-        .status(500)
-        .json({ message: "Something went wrong, please try again later." });
+      return res.status(500).json({ error });
     }
   };
 
@@ -52,16 +53,18 @@ class BookingController {
         endedAt: endedAt,
       });
 
-      return res.status(200).json({
+      return res.status(201).json({
         message: "The booking created successfully!",
         data,
       });
     } catch (error) {
       console.error(error);
 
-      return res
-        .status(500)
-        .json({ message: "Something went wrong, please try again later." });
+      if (error instanceof ValidationError) {
+        return res.status(400).json({ error: error.message });
+      }
+
+      return res.status(500).json({ error });
     }
   };
 
@@ -73,7 +76,7 @@ class BookingController {
       const booking = await Booking.findByPk(req.params.id);
 
       if (!booking) {
-        throw new Error("Booking not found");
+        return res.status(404).json({ message: "Booking not found." });
       }
 
       const { userId, parkingSpotId, startedAt, endedAt } = req.body;
@@ -93,9 +96,11 @@ class BookingController {
     } catch (error) {
       console.error(error);
 
-      return res
-        .status(500)
-        .json({ message: "Something went wrong, please try again later." });
+      if (error instanceof ValidationError) {
+        return res.status(400).json({ error: error.message });
+      }
+
+      return res.status(500).json({ error });
     }
   };
 
@@ -107,7 +112,7 @@ class BookingController {
       const booking = await Booking.findByPk(req.params.id);
 
       if (!booking) {
-        throw new Error("Booking not found");
+        return res.status(404).json({ message: "Booking not found." });
       }
 
       booking.destroy();
@@ -118,9 +123,7 @@ class BookingController {
     } catch (error) {
       console.error(error);
 
-      return res
-        .status(500)
-        .json({ message: "Something went wrong, please try again later." });
+      return res.status(500).json({ error });
     }
   };
 }
