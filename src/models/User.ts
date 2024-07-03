@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import DatabaseService from "../services/DatabaseService";
+import UserBusinessLogic from "../businessLogics/UserBusinessLogic";
 
 class User extends Model {
   public id!: number;
@@ -11,6 +12,8 @@ class User extends Model {
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+
+  public businessLogic!: UserBusinessLogic;
 }
 
 const sequelize = new DatabaseService().instantiateSequelize();
