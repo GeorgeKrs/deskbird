@@ -3,6 +3,7 @@ import Booking from "../../models/Booking";
 import { ValidationError } from "sequelize";
 import User from "../../models/User";
 import ParkingSpot from "../../models/ParkingSpot";
+import BookingPolicy from "../../policies/BookingPolicy";
 
 class BookingController {
   /*
@@ -10,6 +11,10 @@ class BookingController {
    */
   static index = async (req: Request, res: Response) => {
     try {
+      if (!BookingPolicy.canViewAll(req.user)) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+
       const data = await Booking.findAll({
         include: [
           { model: User, as: "user" },
@@ -41,6 +46,10 @@ class BookingController {
         return res.status(404).json({ message: "Booking not found." });
       }
 
+      if (!BookingPolicy.canView(req.user, booking)) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+
       return res.status(200).json({
         message: "The is the information we have about the booking",
         data: booking,
@@ -57,6 +66,10 @@ class BookingController {
    */
   static create = async (req: Request, res: Response) => {
     try {
+      if (!BookingPolicy.canCreate(req.user)) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+
       const { userId, parkingSpotId, startedAt, endedAt } = req.body;
 
       const booking = await Booking.create({
@@ -95,6 +108,10 @@ class BookingController {
 
       if (!booking) {
         return res.status(404).json({ message: "Booking not found." });
+      }
+
+      if (!BookingPolicy.canUpdate(req.user, booking)) {
+        return res.status(401).json({ message: "Unauthorized" });
       }
 
       const { userId, parkingSpotId, startedAt, endedAt } = req.body;
@@ -137,6 +154,10 @@ class BookingController {
 
       if (!booking) {
         return res.status(404).json({ message: "Booking not found." });
+      }
+
+      if (!BookingPolicy.canDelete(req.user, booking)) {
+        return res.status(401).json({ message: "Unauthorized" });
       }
 
       booking.destroy();

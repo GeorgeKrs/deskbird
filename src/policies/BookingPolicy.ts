@@ -1,5 +1,3 @@
-import UserBusinessLogic from "../businessLogics/UserBusinessLogic";
-import { USER_APP_ROLES } from "../enums/UserAppRoles";
 import Booking from "../models/Booking";
 import User from "../models/User";
 
@@ -35,8 +33,6 @@ class BookingPolicy {
    * @param user User instance
    */
   static canCreate = (user: User) => {
-    console.log("inside");
-    console.log("result: " + user.businessLogic.isAdmin());
     if (user.businessLogic.isAdmin()) {
       return true;
     }

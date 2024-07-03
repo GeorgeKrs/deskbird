@@ -53,6 +53,32 @@ User.init(
     defaultScope: {
       attributes: { exclude: ["token"] },
     },
+    hooks: {
+      afterFind: (result) => {
+        if (result instanceof User) {
+          result.businessLogic = new UserBusinessLogic(result);
+          return;
+        }
+
+        if (Array.isArray(result)) {
+          result.forEach((user) => {
+            if (user instanceof User) {
+              user.businessLogic = new UserBusinessLogic(user);
+            }
+          });
+        }
+      },
+      afterCreate: (user) => {
+        if (user instanceof User) {
+          user.businessLogic = new UserBusinessLogic(user);
+        }
+      },
+      afterUpdate: (user) => {
+        if (user instanceof User) {
+          user.businessLogic = new UserBusinessLogic(user);
+        }
+      },
+    },
   }
 );
 
