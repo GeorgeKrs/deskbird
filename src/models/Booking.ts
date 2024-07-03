@@ -1,4 +1,4 @@
-import { Model, DataTypes, ValidationError } from "sequelize";
+import { Model, DataTypes } from "sequelize";
 import DatabaseService from "../services/DatabaseService";
 import User from "./User";
 import ParkingSpot from "./ParkingSpot";
