@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import Booking from "../../models/Booking";
 import { ValidationError } from "sequelize";
+import User from "../../models/User";
+import ParkingSpot from "../../models/ParkingSpot";
 
 class BookingController {
   /*
@@ -8,7 +10,12 @@ class BookingController {
    */
   static index = async (req: Request, res: Response) => {
     try {
-      const data = await Booking.findAll();
+      const data = await Booking.findAll({
+        include: [
+          { model: User, as: "user" },
+          { model: ParkingSpot, as: "parkingSpot" },
+        ],
+      });
       return res.status(200).json({ data });
     } catch (error) {
       console.error(error);
@@ -22,7 +29,12 @@ class BookingController {
    */
   static show = async (req: Request, res: Response) => {
     try {
-      const booking = await Booking.findByPk(req.params.id);
+      const booking = await Booking.findByPk(req.params.id, {
+        include: [
+          { model: User, as: "user" },
+          { model: ParkingSpot, as: "parkingSpot" },
+        ],
+      });
 
       if (!booking) {
         return res.status(404).json({ message: "Booking not found." });
@@ -53,9 +65,16 @@ class BookingController {
         endedAt: endedAt,
       });
 
+      console.log(data);
+
       return res.status(201).json({
         message: "The booking created successfully!",
-        data,
+        data: await Booking.findByPk(data.id, {
+          include: [
+            { model: User, as: "user" },
+            { model: ParkingSpot, as: "parkingSpot" },
+          ],
+        }),
       });
     } catch (error) {
       console.error(error);
@@ -90,9 +109,15 @@ class BookingController {
 
       await booking.save();
 
-      return res
-        .status(200)
-        .json({ message: "The booking updated successfully!", data: booking });
+      return res.status(200).json({
+        message: "The booking updated successfully!",
+        data: await Booking.findByPk(req.params.id, {
+          include: [
+            { model: User, as: "user" },
+            { model: ParkingSpot, as: "parkingSpot" },
+          ],
+        }),
+      });
     } catch (error) {
       console.error(error);
 
