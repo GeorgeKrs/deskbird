@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import DatabaseService from "../services/DatabaseService";
+import Booking from "./Booking";
 
 class User extends Model {
   public id!: number;

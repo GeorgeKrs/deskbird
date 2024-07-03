@@ -4,6 +4,8 @@ import "dotenv/config";
 import { router as BookingRoutes } from "./http/routes/BookingRoute";
 import UpdateOrCreateUsersSeeder from "./seeders/UpdateOrCreateUsersSeeder";
 import UpdateOrCreateParkingSpotsSeeder from "./seeders/UpdateOrCreateParkingSpotsSeeder";
+import UpdateOrCreateBookingsSeeder from "./seeders/UpdateOrCreateBookingsSeeder";
+import { APP_ENV } from "./enums/AppEnvironment";
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
@@ -37,20 +39,29 @@ databaseService
 
 /*
  *
- *  Seeders
+ *  Development Seeders
  *
  */
-UpdateOrCreateUsersSeeder()
-  .then(() => console.log("Users created or updated successfully!"))
-  .catch((error: any) =>
-    console.error("Error at UpdateOrCreateUsersSeeder.", error)
-  );
 
-UpdateOrCreateParkingSpotsSeeder()
-  .then(() => console.log("Parking Spots created or updated successfully!"))
-  .catch((error: any) =>
-    console.error("Error at UpdateOrCreateParkingSpotsSeeder.", error)
-  );
+if (process.env.APP_ENV === APP_ENV.DEVELOPMENT) {
+  UpdateOrCreateUsersSeeder()
+    .then(() => console.log("Users created or updated successfully!"))
+    .catch((error: any) =>
+      console.error("Error at UpdateOrCreateUsersSeeder.", error)
+    );
+
+  UpdateOrCreateParkingSpotsSeeder()
+    .then(() => console.log("Parking Spots created or updated successfully!"))
+    .catch((error: any) =>
+      console.error("Error at UpdateOrCreateParkingSpotsSeeder.", error)
+    );
+
+  UpdateOrCreateBookingsSeeder()
+    .then(() => console.log("Bookings created or updated successfully!"))
+    .catch((error: any) =>
+      console.error("Error at UpdateOrCreateBookingsSeeder.", error)
+    );
+}
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
