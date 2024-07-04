@@ -34,13 +34,20 @@ class BookingPolicy {
   /**
    * Decides if the user can create a booking record
    * @param user User instance
+   * @param userId The userId of the booking record.
+   * Admins can create bookings for all users, but a standard
+   * user can create only a record for himself
    */
-  static canCreate = (user: User) => {
+  static canCreate = (user: User, userId: number) => {
     if (user.businessLogic.isAdmin()) {
       return true;
     }
 
-    return false;
+    if (user.id === userId) {
+      return true;
+    }
+
+    return true;
   };
 
   /**

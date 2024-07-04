@@ -66,11 +66,11 @@ class BookingController {
    */
   static create = async (req: Request, res: Response) => {
     try {
-      if (!BookingPolicy.canCreate(req.user)) {
+      const { userId, parkingSpotId, startedAt, endedAt } = req.body;
+
+      if (!BookingPolicy.canCreate(req.user, userId)) {
         return res.status(401).json({ message: "Unauthorized" });
       }
-
-      const { userId, parkingSpotId, startedAt, endedAt } = req.body;
 
       const booking = await Booking.create({
         userId: userId,
