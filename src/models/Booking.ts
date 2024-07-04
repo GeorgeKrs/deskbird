@@ -25,8 +25,8 @@ const validations = {
     isInt: {
       msg: "Parking spot ID must be an integer",
     },
-    async exists(value: number) {
-      const parkingSpot = await ParkingSpot.findByPk(value);
+    async exists(id: number) {
+      const parkingSpot = await ParkingSpot.findByPk(id);
       if (!parkingSpot) {
         throw new Error("Parking spot does not exist");
       }
@@ -40,8 +40,8 @@ const validations = {
     isInt: {
       msg: "User ID must be an integer",
     },
-    async exists(value: number) {
-      const user = await User.findByPk(value);
+    async exists(id: number) {
+      const user = await User.findByPk(id);
       if (!user) {
         throw new Error("User does not exist");
       }
