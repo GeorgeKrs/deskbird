@@ -47,7 +47,7 @@ class BookingPolicy {
       return true;
     }
 
-    return true;
+    return false;
   };
 
   /**
