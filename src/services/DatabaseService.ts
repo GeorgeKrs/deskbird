@@ -48,6 +48,7 @@ class DatabaseService {
   /* Instantiate sequelize with name of database, username and password */
   instantiateSequelize = () => {
     return new Sequelize(this.database, this.username, this.password, {
+      port: this.port,
       host: this.host,
       dialect: "postgres",
     });
