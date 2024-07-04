@@ -17,10 +17,16 @@ const AuthMiddleware = async (
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
 
+    if (!token) {
+      return res
+        .status(401)
+        .json({ message: "Unauthorized, no token provided." });
+    }
+
     const user = await User.findOne({ where: { token: token } });
 
     if (!user) {
-      return res.status(401).json({ message: "unauthorized" });
+      return res.status(401).json({ message: "Unauthorized" });
     }
 
     req.user = user;
