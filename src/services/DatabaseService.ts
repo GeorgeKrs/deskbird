@@ -1,5 +1,9 @@
 import { Sequelize } from "sequelize";
 
+/*
+ *  Responsible for managing all the functionality
+ *  that has to do with the database layer
+ */
 class DatabaseService {
   database: string;
   username: string;

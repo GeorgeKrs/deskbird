@@ -3,6 +3,7 @@ import User from "../models/User";
 
 class BookingPolicy {
   /**
+   * Decides if the user can view all booking records
    * @param user User instance
    */
   static canViewAll = (user: User) => {
@@ -14,6 +15,7 @@ class BookingPolicy {
   };
 
   /**
+   * Decides if the user can view a specific booking record
    * @param user User instance
    * @param booking Booking instance
    */
@@ -30,6 +32,7 @@ class BookingPolicy {
   };
 
   /**
+   * Decides if the user can create a booking record
    * @param user User instance
    */
   static canCreate = (user: User) => {
@@ -41,6 +44,7 @@ class BookingPolicy {
   };
 
   /**
+   * Decides if the user can update a specific booking record
    * @param user User instance
    * @param booking Booking instance
    */
@@ -57,6 +61,7 @@ class BookingPolicy {
   };
 
   /**
+   * Decides if the user can delete a specific booking record
    * @param user User instance
    * @param booking Booking instance
    */
