@@ -5,7 +5,6 @@ import { router as BookingRoutes } from "./http/routes/BookingRoute";
 import { APP_ENV } from "./enums/AppEnvironment";
 import UpdateOrCreateUsersSeeder from "./seeders/UpdateOrCreateUsersSeeder";
 import UpdateOrCreateParkingSpotsSeeder from "./seeders/UpdateOrCreateParkingSpotsSeeder";
-import UpdateOrCreateBookingsSeeder from "./seeders/UpdateOrCreateBookingsSeeder";
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
@@ -54,12 +53,6 @@ if (process.env.APP_ENV === APP_ENV.DEVELOPMENT) {
     .catch((error: any) =>
       console.error("Error at UpdateOrCreateParkingSpotsSeeder.", error)
     );
-
-  // UpdateOrCreateBookingsSeeder()
-  //   .then(() => console.log("Bookings created or updated successfully!"))
-  //   .catch((error: any) =>
-  //     console.error("Error at UpdateOrCreateBookingsSeeder.", error)
-  //   );
 }
 
 app.listen(PORT, () => {
