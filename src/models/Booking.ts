@@ -166,10 +166,10 @@ Booking.init(
 /*
  *  Relationships
  */
-Booking.belongsTo(User, { foreignKey: "userId", as: "user" });
+Booking.belongsTo(User, { as: "user", foreignKey: "userId" });
 Booking.belongsTo(ParkingSpot, {
-  foreignKey: "parkingSpotId",
   as: "parkingSpot",
+  foreignKey: "parkingSpotId",
 });
 
 export default Booking;
