@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "616a67fb-fbde-4394-8a05-802a3fb935f8",
+		"name": "Booking Production",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17203854"
+	},
+	"item": [
+		{
+			"name": "Index",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "token1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://gkrs.gr/api/bookings",
+					"protocol": "http",
+					"host": [
+						"gkrs",
+						"gr"
+					],
+					"path": [
+						"api",
+						"bookings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "token5",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 5,\n    \"parkingSpotId\": 10,\n    \"startedAt\": \"2024-07-06 15:00:00+00\",\n    \"endedAt\": \"2024-07-06 17:00:00+00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://gkrs.gr/api/bookings/create",
+					"protocol": "http",
+					"host": [
+						"gkrs",
+						"gr"
+					],
+					"path": [
+						"api",
+						"bookings",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "token5",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://gkrs.gr/api/bookings/1",
+					"protocol": "http",
+					"host": [
+						"gkrs",
+						"gr"
+					],
+					"path": [
+						"api",
+						"bookings",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "token4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\":4 ,\n    \"parkingSpotId\": 3,\n    \"startedAt\": \"2024-07-03 10:00:00+03\",\n    \"endedAt\": \"2024-07-03 14:30:00+03\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://gkrs.gr/api/bookings/1",
+					"protocol": "http",
+					"host": [
+						"gkrs",
+						"gr"
+					],
+					"path": [
+						"api",
+						"bookings",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "token5",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://gkrs.gr/api/bookings/8",
+					"protocol": "http",
+					"host": [
+						"gkrs",
+						"gr"
+					],
+					"path": [
+						"api",
+						"bookings",
+						"8"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
