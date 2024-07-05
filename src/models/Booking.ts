@@ -1,4 +1,4 @@
-import { Model, DataTypes } from "sequelize";
+import { Model, DataTypes, Op } from "sequelize";
 import DatabaseService from "../services/DatabaseService";
 import User from "./User";
 import ParkingSpot from "./ParkingSpot";
@@ -59,6 +59,49 @@ const validations = {
     isBeforeEndDate(value: Date) {
       if (value >= (this as any).endedAt) {
         throw new Error("Start date must be earlier than end date");
+      }
+    },
+    async isNotOverlapping(value: Date) {
+      const { userId, parkingSpotId, endedAt } = this as any;
+      const overlappingBooking = await Booking.findOne({
+        where: {
+          userId,
+          parkingSpotId,
+          [Op.or]: [
+            {
+              startedAt: {
+                [Op.lt]: endedAt,
+                [Op.gt]: value,
+              },
+            },
+            {
+              endedAt: {
+                [Op.gt]: value,
+                [Op.lt]: endedAt,
+              },
+            },
+            {
+              [Op.and]: [
+                {
+                  startedAt: {
+                    [Op.lte]: value,
+                  },
+                },
+                {
+                  endedAt: {
+                    [Op.gte]: endedAt,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      });
+
+      if (overlappingBooking) {
+        throw new Error(
+          "Booking times overlap with an existing booking (at start date time)"
+        );
       }
     },
   },
