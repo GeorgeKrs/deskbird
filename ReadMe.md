@@ -1,7 +1,7 @@
 # About
 
 This is a backend project for Deskbird's assignment.
-The stack is Node Js, Express Js, TypeScript, Sequelize (ORM) & Postgres
+The stack is Node JS, Express JS, TypeScript, Sequelize (ORM) & Postgres
 </br>
 
 The development was done in:
