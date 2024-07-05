@@ -97,11 +97,8 @@ const validations = {
           ],
         },
       });
-
       if (overlappingBooking) {
-        throw new Error(
-          "Booking times overlap with an existing booking (at start date time)"
-        );
+        throw new Error("Booking times overlap with an existing booking.");
       }
     },
   },
