@@ -20,11 +20,11 @@ Note: Before proceeding, make sure you already have installed node and postgres 
 
 ### Server
 
-- Open a terminal in project's directory and run: <b>npm start/</b>
+- Open a terminal in project's directory and run: <b>npm start</b>
 
 ### General Notes
 
-- The app is hosted on a temp domain http://gkrs.gr and it is connected with a Google Cloud Postgres
+- The app is hosted on a temp domain http://gkrs.gr/api/bookings and it is connected with a Google Cloud Postgres
 - In the root directory you will find a <b>utils</b> directory that contains a SQL file that you can import locally to create an instance of a database with data.
 - You will also find a json file with the Postman APIs collection used both for development and in production.
 - Last but not least, the tokens in the users table are not encrypted so that the testing can be done easily.
